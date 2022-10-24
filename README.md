@@ -1,1 +1,3 @@
-# zk-crypto-networth
+# zk-crypto-net-worth
+
+Work in progress...
