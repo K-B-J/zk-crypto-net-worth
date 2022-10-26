@@ -2,16 +2,9 @@
   "name": "zk-crypto-net-worth",
   "version": "1.0.0",
   "main": "server.js",
-  "repository": "git@github.com:K-B-J/zk-crypto-net-worth.git",
-  "author": "Kevin Joshi <kevinjoshi46b@gmail.com>",
-  "license": "MIT",
-  "scripts": {
-    "start": "node server.js"
-  },
+  "private": true,
+  "type": "module",
   "dependencies": {
-    "hardhat": "^2.12.0"
-  },
-  "devDependencies": {
     "@ethersproject/abi": "^5.7.0",
     "@ethersproject/providers": "^5.7.2",
     "@nomicfoundation/hardhat-chai-matchers": "^1.0.4",
@@ -22,9 +15,20 @@
     "@typechain/ethers-v5": "^10.1.0",
     "@typechain/hardhat": "^6.1.3",
     "chai": "^4.3.6",
+    "dotenv": "^16.0.3",
     "ethers": "^5.7.2",
+    "express": "^4.18.2",
+    "hardhat": "^2.12.0",
     "hardhat-gas-reporter": "^1.0.9",
+    "morgan": "^1.10.0",
     "solidity-coverage": "^0.8.2",
     "typechain": "^8.1.0"
+  },
+  "scripts": {
+    "start": "node server",
+    "server": "nodemon",
+    "client": "cd frontend && yarn start",
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "build": "cd frontend && yarn build"
   }
 }
