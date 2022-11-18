@@ -1,9 +1,9 @@
 import express from "express"
 import path from "path"
-import authRoutes from "./routes/authRoutes.js.js"
-import dashboardRoutes from "./routes/dashboardRoutes.js.js"
+import authRoutes from "./routes/authRoutes.js"
+import dashboardRoutes from "./routes/dashboardRoutes.js"
 import walletsRoutes from "./routes/walletsRoutes.js"
-import requestsRoutes from "./routes/requestsRoutes.js.js"
+import requestsRoutes from "./routes/requestsRoutes.js"
 import dotenv from "dotenv"
 dotenv.config()
 
