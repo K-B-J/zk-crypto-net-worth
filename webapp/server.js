@@ -1,7 +1,9 @@
 import express from "express"
-import morgan from "morgan"
 import path from "path"
-import zkcnwRoutes from "./routes/zkcnwRoutes.js"
+import authRoutes from "./routes/authRoutes.js.js"
+import dashboardRoutes from "./routes/dashboardRoutes.js.js"
+import walletsRoutes from "./routes/walletsRoutes.js"
+import requestsRoutes from "./routes/requestsRoutes.js.js"
 import dotenv from "dotenv"
 dotenv.config()
 
@@ -9,13 +11,12 @@ const app = express()
 
 const NODE_ENV = process.env.NODE_ENV || "development"
 
-if (NODE_ENV === "development") {
-    app.use(morgan("dev"))
-}
-
 app.use(express.json())
 
-app.use("/api/", zkcnwRoutes)
+app.use("/api/auth", authRoutes)
+app.use("/api/dashboard", dashboardRoutes)
+app.use("/api/wallets", walletsRoutes)
+app.use("/api/requests", requestsRoutes)
 
 const __dirname = path.resolve()
 
@@ -33,7 +34,5 @@ if (NODE_ENV === "production") {
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () =>
-    console.log(
-        `Server running in ${process.env.NODE_ENV} mode on port ${PORT}`
-    )
+    console.log(`Server running in ${NODE_ENV} mode on port ${PORT}`)
 )
