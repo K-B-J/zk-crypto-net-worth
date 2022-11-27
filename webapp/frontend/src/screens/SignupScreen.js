@@ -32,7 +32,8 @@ const SignupScreen = () => {
     const [isUniqueUsername, setIsUniqueUsername] = useState(true)
     const [disableInput, setDisableInput] = useState(false)
     const [submitLoading, setSubmitLoading] = useState(false)
- const createAccount = async () => {
+
+    const createAccount = async () => {
         setSubmitLoading(true)
         setDisableInput(true)
         let resp = await axios({
@@ -65,7 +66,6 @@ const SignupScreen = () => {
         }
     }
 
-   
     return (
         <Box
             sx={{
