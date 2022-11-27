@@ -18,7 +18,37 @@ const AuthScreen = () => {
     const navigate = useNavigate()
     const [cookies, setCookie] = useCookies([])
     const [isLoading, setIsLoading] = useState(false)
+    
+    useEffect(() => {
+        if (cookies.Auth) return navigate("/dashboard", { replace: true })
+    }, [])
 
+    const authenticate = async () => {
+        let resp = await axios({
+            method: "post",
+            url: "/api/auth",
+            headers: {},
+            data: {
+                walletAddress: address,
+            },
+        })
+        if (resp.data.exists) {
+            setCookie(
+                "Auth",
+                JSON.stringify({
+                    username: resp.data.username,
+                    walletAddress: resp.data.walletAddress,
+                }),
+                {
+                    path: "/",
+                }
+            )
+            return navigate("/dashboard", { replace: true })
+        } else {
+            return navigate("/signup", { replace: true })
+        }
+    }
+    
     useEffect(() => {
         if (isConnecting) {
             if (!isOpen) {
