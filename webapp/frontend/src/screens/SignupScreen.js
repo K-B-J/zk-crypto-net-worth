@@ -32,6 +32,38 @@ const SignupScreen = () => {
     const [isUniqueUsername, setIsUniqueUsername] = useState(true)
     const [disableInput, setDisableInput] = useState(false)
     const [submitLoading, setSubmitLoading] = useState(false)
+ const createAccount = async () => {
+        setSubmitLoading(true)
+        setDisableInput(true)
+        let resp = await axios({
+            method: "post",
+            url: "/api/auth/createaccount",
+            headers: {},
+            data: {
+                username: username,
+                walletAddress: address,
+            },
+        })
+        if (resp.data.isUnique) {
+            if (resp.data.success) {
+                setCookie(
+                    "Auth",
+                    JSON.stringify({
+                        username: resp.data.username,
+                        walletAddress: resp.data.walletAddress,
+                    }),
+                    {
+                        path: "/",
+                    }
+                )
+                navigate("/dashboard", { replace: true })
+            }
+        } else {
+            setDisableInput(false)
+            setSubmitLoading(false)
+            setIsUniqueUsername(false)
+        }
+    }
 
    
     return (
