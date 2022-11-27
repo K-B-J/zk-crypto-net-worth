@@ -18,7 +18,7 @@ const AuthScreen = () => {
     const navigate = useNavigate()
     const [cookies, setCookie] = useCookies([])
     const [isLoading, setIsLoading] = useState(false)
-    
+
     useEffect(() => {
         if (cookies.Auth) return navigate("/dashboard", { replace: true })
     }, [])
@@ -48,7 +48,7 @@ const AuthScreen = () => {
             return navigate("/signup", { replace: true })
         }
     }
-    
+
     useEffect(() => {
         if (isConnecting) {
             if (!isOpen) {
