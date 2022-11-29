@@ -1,7 +1,7 @@
 import expressAsyncHandler from "express-async-handler"
 
-const getDashboardData = expressAsyncHandler(async (req, res, next) => {})
+const login = expressAsyncHandler(async (req, res, next) => {})
 
-const setFeedsController = expressAsyncHandler(async (req, res, next) => {})
+const signup = expressAsyncHandler(async (req, res, next) => {})
 
-export { getDashboardData, setFeedsController}
+export { login, signup }
