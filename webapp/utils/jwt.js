@@ -7,4 +7,13 @@ const generateToken = (username, privateKey, isAdmin) => {
     })
 }
 
+const verifyToken = (token) => {
+    try {
+        const result = jwt.verify(token, JWT_KEY)
+        return { success: true, result }
+    } catch (error) {
+        return { success: false, error }
+    }
+}
+
 export { generateToken, verifyToken }
