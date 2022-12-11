@@ -4,12 +4,10 @@ import authRoutes from "./routes/authRoutes.js"
 import dashboardRoutes from "./routes/dashboardRoutes.js"
 import walletsRoutes from "./routes/walletsRoutes.js"
 import requestsRoutes from "./routes/requestsRoutes.js"
-import dotenv from "dotenv"
-dotenv.config()
+import { notFound, errorHandler } from "./middleware/errorMiddleware.js"
+import { NODE_ENV, PORT } from "./env.js"
 
 const app = express()
-
-const NODE_ENV = process.env.NODE_ENV || "development"
 
 app.use(express.json())
 
@@ -31,7 +29,8 @@ if (NODE_ENV === "production") {
     })
 }
 
-const PORT = process.env.PORT || 5000
+app.use(notFound)
+app.use(errorHandler)
 
 app.listen(PORT, () =>
     console.log(`Server running in ${NODE_ENV} mode on port ${PORT}`)
