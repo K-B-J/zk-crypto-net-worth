@@ -5,6 +5,12 @@ import useMediaQuery from "@mui/material/useMediaQuery"
 import { ThemeProvider, createTheme } from "@mui/material/styles"
 import { useCookies } from "react-cookie"
 import { Web3Modal } from "@web3modal/react"
+import {
+    EthereumClient,
+    modalConnectors,
+    walletConnectProvider,
+} from "@web3modal/ethereum"
+import { chain, configureChains, createClient, WagmiConfig } from "wagmi"
 
 import AuthScreen from "./screens/AuthScreen"
 import SignupScreen from "./screens/SignupScreen"
@@ -12,26 +18,27 @@ import DashboardScreen from "./screens/DashboardScreen"
 import WalletsScreen from "./screens/WalletsScreen"
 import RequestsScreen from "./screens/RequestsScreen"
 import PageNotFoundScreen from "./screens/PageNotFoundScreen"
+import SendRequestScreen from "./screens/SendRequestScreen"
+import VerifyProofScreen from "./screens/VerifyProofScreen"
 
 export const ColorModeContext = React.createContext({
     toggleColorMode: () => {},
 })
 
-const config = {
-    projectId: "4b4558901d6b19785f6f2d45987752f1",
-    theme: "dark",
-    accentColor: "default",
-    ethereum: {
-        appName: "zk-crypto-net-worth",
-        chains: [
-            {
-                id: 5,
-                name: "Goerli",
-                testnet: true,
-            },
-        ],
-    },
-}
+const chains = [chain.goerli]
+
+// Wagmi client
+const { provider } = configureChains(chains, [
+    walletConnectProvider({ projectId: "4b4558901d6b19785f6f2d45987752f1" }),
+])
+const wagmiClient = createClient({
+    autoConnect: true,
+    connectors: modalConnectors({ appName: "web3Modal", chains }),
+    provider,
+})
+
+// Web3Modal Ethereum Client
+const ethereumClient = new EthereumClient(wagmiClient, chains)
 
 function App() {
     const [cookies, setCookie] = useCookies([])
@@ -76,37 +83,64 @@ function App() {
         <ColorModeContext.Provider value={toggleColorMode}>
             <ThemeProvider theme={theme}>
                 <CssBaseline enableColorScheme />
-                <Web3Modal config={config} />
-                <Router>
-                    <Routes>
-                        <Route path="/" element={<AuthScreen />} />
-                        <Route path="/signup" element={<SignupScreen />} />
-                        <Route
-                            path="/dashboard"
-                            element={
-                                <DashboardScreen drawerWidth={drawerWidth} />
-                            }
-                        />
-                        <Route
-                            path="/wallets"
-                            element={
-                                <WalletsScreen drawerWidth={drawerWidth} />
-                            }
-                        />
-                        <Route
-                            path="/requests"
-                            element={
-                                <RequestsScreen drawerWidth={drawerWidth} />
-                            }
-                        />
-                        <Route
-                            path="*"
-                            element={
-                                <PageNotFoundScreen drawerWidth={drawerWidth} />
-                            }
-                        />
-                    </Routes>
-                </Router>
+                <Web3Modal
+                    projectId="4b4558901d6b19785f6f2d45987752f1"
+                    theme="dark"
+                    accentColor="blackWhite"
+                    ethereumClient={ethereumClient}
+                />
+                <WagmiConfig client={wagmiClient}>
+                    <Router>
+                        <Routes>
+                            <Route path="/" element={<AuthScreen />} />
+                            <Route path="/signup" element={<SignupScreen />} />
+                            <Route
+                                path="/dashboard"
+                                element={
+                                    <DashboardScreen
+                                        drawerWidth={drawerWidth}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/wallets"
+                                element={
+                                    <WalletsScreen drawerWidth={drawerWidth} />
+                                }
+                            />
+                            <Route
+                                path="/requests"
+                                element={
+                                    <RequestsScreen drawerWidth={drawerWidth} />
+                                }
+                            />
+                            <Route
+                                path="/requests/sendrequest"
+                                element={
+                                    <SendRequestScreen
+                                        drawerWidth={drawerWidth}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/requests/verifyproof"
+                                element={
+                                    <VerifyProofScreen
+                                        drawerWidth={drawerWidth}
+                                    />
+                                }
+                            />
+                            <Route
+                                path="*"
+                                element={
+                                    <PageNotFoundScreen
+                                        drawerWidth={drawerWidth}
+                                    />
+                                }
+                            />
+                        </Routes>
+                    </Router>
+                </WagmiConfig>
             </ThemeProvider>
         </ColorModeContext.Provider>
     )

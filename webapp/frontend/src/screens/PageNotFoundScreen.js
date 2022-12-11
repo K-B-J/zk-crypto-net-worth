@@ -1,4 +1,4 @@
-import React from "react"
+import { useState } from "react"
 import Box from "@mui/material/Box"
 import { Typography } from "@mui/material"
 import { useTheme } from "@mui/material/styles"
@@ -10,7 +10,7 @@ import Topbar from "../components/Topbar"
 
 const PageNotFoundScreen = ({ drawerWidth }) => {
     const theme = useTheme()
-    const [mobileOpen, setMobileOpen] = React.useState(false)
+    const [mobileOpen, setMobileOpen] = useState(false)
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen)
