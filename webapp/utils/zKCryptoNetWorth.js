@@ -1,6 +1,8 @@
 import { ethers } from "ethers"
 import { ALCHEMY_GOERLI, WALLET_PRIVATE_KEY } from "../env.js"
-import zKCryptoNetWorthGoerli from "./contracts/zKCryptoNetWorthGoerli.json" assert { type: "json" }
+import { createRequire } from "module"
+const require = createRequire(import.meta.url)
+const zKCryptoNetWorthGoerli = require("./contracts/zKCryptoNetWorthGoerli.json")
 
 const provider = new ethers.providers.JsonRpcProvider(ALCHEMY_GOERLI)
 const providerContract = new ethers.Contract(
