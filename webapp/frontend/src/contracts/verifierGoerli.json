@@ -1,0 +1,1 @@
+{"address":"0xF37461930abC16A9E49c1B9A9EA3f04f8A4Bbdc6","abi":[{"type":"function","name":"verifyProof","constant":true,"stateMutability":"view","payable":false,"inputs":[{"type":"uint256[2]","name":"a"},{"type":"uint256[2][2]","name":"b"},{"type":"uint256[2]","name":"c"},{"type":"uint256[1]","name":"input"}],"outputs":[{"type":"bool","name":"r"}]}]}
