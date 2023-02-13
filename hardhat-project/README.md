@@ -1,13 +1,14 @@
-# Sample Hardhat Project
+# Deploying the smart contracts
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+> **NOTE:** Contracts redeployed on the same network cannot be verified if there are no changes from the previously verified contracts so, either change the network or make any minor change in the contracts before deploying them
 
-Try running some of the following tasks:
+1. Create the env file using the env-sample file
+2. Run the following command
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.ts
+```bash
+yarn install
+```
+
+```bash
+./deploy.sh
 ```
