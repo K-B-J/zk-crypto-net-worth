@@ -107,5 +107,54 @@ const getQuantityController = expressAsyncHandler(async (req, res, next) => {
     }
 })
 
+const setFeedsController = expressAsyncHandler(async (req, res, next) => {
+    const { tokens, feeds, network } = req.body
+    if (tokens == undefined || tokens.length == 0) {
+        return res.status(200).json({
+            error: "Data missing",
+            message: "Tokens are not provided",
+        })
+    }
+    tokens.forEach((token) => {
+        if (!ethers.utils.isAddress(token)) {
+            return res.status(200).json({
+                error: "Invalid token",
+                message: "One of the token address provided is invalid",
+            })
+        }
+    })
+    if (feeds == undefined || feeds.length == 0) {
+        return res.status(200).json({
+            error: "Data missing",
+            message: "Feeds are not provided",
+        })
+    }
+    feeds.forEach((feed) => {
+        if (!ethers.utils.isAddress(feed)) {
+            return res.status(200).json({
+                error: "Invalid feed",
+                message: "One of the feed address provided is invalid",
+            })
+        }
+    })
+    if (tokens.length != feeds.length) {
+        return res.status(200).json({
+            error: "Data missing",
+            message: "Equal no of tokens and feeds are not provided",
+        })
+    }
+    if (network == undefined) {
+        return res.status(200).json({
+            error: "Data missing",
+            message: "Network is not provided",
+        })
+    }
+    const setFeedsResult = await setFeeds(tokens, feeds, network)
+    if (setFeedsResult.success) {
+        return res.status(200).json({
+            message: "Feeds added successfully!",
+        })
+    }
+})
 
-export { getPricesController, getQuantityController }
+export { getPricesController, getQuantityController, setFeedsController }
