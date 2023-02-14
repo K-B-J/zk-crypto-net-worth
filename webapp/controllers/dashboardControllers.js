@@ -35,6 +35,18 @@ const getPricesController = expressAsyncHandler(async (req, res, next) => {
             message: "Fetched prices from blockchain successfully!",
             data: fetchedPrices.result,
         })
+    } else {
+        if (fetchedPrices.error == "Provided network is not supported yet!") {
+            return res.status(200).json({
+                error: "Provided network is not supported yet!",
+                message: "Please try again later",
+            })
+        } else {
+            return res.status(200).json({
+                error: "Fetching prices from blockchain failed",
+                message: "Please try again",
+            })
+        }
     }
 })
 
@@ -104,6 +116,21 @@ const getQuantityController = expressAsyncHandler(async (req, res, next) => {
                 })
             }
         }
+    } else {
+        if (
+            fetchedNativeBalance.error ==
+            "Provided network is not supported yet!"
+        ) {
+            return res.status(200).json({
+                error: "Provided network is not supported yet!",
+                message: "Please try again later",
+            })
+        } else {
+            return res.status(200).json({
+                error: "Fetching balances from blockchain failed",
+                message: "Please try again",
+            })
+        }
     }
 })
 
@@ -154,6 +181,18 @@ const setFeedsController = expressAsyncHandler(async (req, res, next) => {
         return res.status(200).json({
             message: "Feeds added successfully!",
         })
+    } else {
+        if (setFeedsResult.error == "Provided network is not supported yet!") {
+            return res.status(200).json({
+                error: "Provided network is not supported yet!",
+                message: "Please try again later",
+            })
+        } else {
+            return res.status(200).json({
+                error: "Updating feeds on blockchain failed",
+                message: "Please try again",
+            })
+        }
     }
 })
 
