@@ -138,7 +138,7 @@ const SignupScreen = () => {
                 type: "text/plain",
             })
             element.href = URL.createObjectURL(file)
-            element.download = "Password_ZKWorth_" + username + ".pem"
+            element.download = "Password_KrytpoAssetZ_" + username + ".pem"
             document.body.appendChild(element)
             element.click()
             URL.revokeObjectURL(element.href)
@@ -206,7 +206,7 @@ const SignupScreen = () => {
                     variant="h6"
                     sx={{ fontWeight: "bold", mx: "10px" }}
                 >
-                    ZK Worth
+                    KrytpoAssetZ
                 </Typography>
             </Box>
             <Typography variant="h4" sx={{ fontWeight: "bold", mb: "30px" }}>

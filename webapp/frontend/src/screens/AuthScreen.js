@@ -212,7 +212,7 @@ const AuthScreen = () => {
                     variant="h6"
                     sx={{ fontWeight: "bold", mx: "10px" }}
                 >
-                    ZK Worth
+                    KryptoAssetZ
                 </Typography>
             </Box>
             <Typography variant="h4" sx={{ fontWeight: "bold", mb: "30px" }}>
