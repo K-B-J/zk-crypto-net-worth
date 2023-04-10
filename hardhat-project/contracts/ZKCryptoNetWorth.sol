@@ -274,5 +274,5 @@ contract ZKCryptoNetWorth is Ownable {
         string calldata _username
     ) external view returns (string[] memory) {
         return accounts[_username].outgoingRequests;
-    }
+    } 
 }

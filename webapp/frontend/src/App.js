@@ -18,8 +18,6 @@ import DashboardScreen from "./screens/DashboardScreen"
 import WalletsScreen from "./screens/WalletsScreen"
 import RequestsScreen from "./screens/RequestsScreen"
 import PageNotFoundScreen from "./screens/PageNotFoundScreen"
-import SendRequestScreen from "./screens/SendRequestScreen"
-import VerifyProofScreen from "./screens/VerifyProofScreen"
 
 export const ColorModeContext = React.createContext({
     toggleColorMode: () => {},
@@ -88,6 +86,7 @@ function App() {
                     theme="dark"
                     accentColor="blackWhite"
                     ethereumClient={ethereumClient}
+                    themeZIndex="100"
                 />
                 <WagmiConfig client={wagmiClient}>
                     <Router>
@@ -112,22 +111,6 @@ function App() {
                                 path="/requests"
                                 element={
                                     <RequestsScreen drawerWidth={drawerWidth} />
-                                }
-                            />
-                            <Route
-                                path="/requests/sendrequest"
-                                element={
-                                    <SendRequestScreen
-                                        drawerWidth={drawerWidth}
-                                    />
-                                }
-                            />
-                            <Route
-                                path="/requests/verifyproof"
-                                element={
-                                    <VerifyProofScreen
-                                        drawerWidth={drawerWidth}
-                                    />
                                 }
                             />
                             <Route
